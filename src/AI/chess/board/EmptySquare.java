@@ -12,3 +12,4 @@ public class EmptySquare extends Square{
         return null;
     }
 }
+//empty git :)
