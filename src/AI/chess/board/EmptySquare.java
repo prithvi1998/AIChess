@@ -1,8 +1,8 @@
 package AI.chess.board;
 import AI.chess.peice.Peice;
 
-public class EmptySquare extends Square{
-    EmptySquare(int x){
+public final class EmptySquare extends Square{
+    EmptySquare(final int x){
         super(x);
     }
     public boolean isEmpty(){
