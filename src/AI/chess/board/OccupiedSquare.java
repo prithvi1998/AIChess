@@ -1,9 +1,9 @@
 package AI.chess.board;
 import AI.chess.peice.Peice;
 
-public class OccupiedSquare extends Square{
+public final class OccupiedSquare extends Square{
     //Private variables
-    private Peice here;
+    private final Peice here;
 
     //Public methods
     OccupiedSquare(int x,Peice y){
