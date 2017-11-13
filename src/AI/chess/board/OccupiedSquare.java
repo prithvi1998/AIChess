@@ -1,19 +1,19 @@
 package AI.chess.board;
-import AI.chess.peice.Peice;
+import AI.chess.peice.Piece;
 
 public final class OccupiedSquare extends Square{
     //Private variables
-    private final Peice here;
+    private final Piece here;
 
     //Public methods
-    OccupiedSquare(int x,Peice y){
+    OccupiedSquare(int x,Piece y){
         super(x);
         this.here = y;
     }
     public boolean isEmpty(){
         return false;
     }
-    public Peice getPeice(){
+    public Piece getPiece(){
         return here;
     }
 }

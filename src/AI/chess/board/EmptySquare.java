@@ -1,5 +1,5 @@
 package AI.chess.board;
-import AI.chess.peice.Peice;
+import AI.chess.peice.Piece;
 
 public final class EmptySquare extends Square{
     EmptySquare(final int x){
@@ -8,7 +8,7 @@ public final class EmptySquare extends Square{
     public boolean isEmpty(){
         return true;
     }
-    public Peice getPeice(){
+    public Piece getPiece(){
         return null;
     }
 }

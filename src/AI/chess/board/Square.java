@@ -1,5 +1,6 @@
 package AI.chess.board;
-import AI.chess.peice.Peice;
+import AI.chess.peice.Piece;
+import com.google.common.collect.ImmutableMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +24,7 @@ public abstract class  Square {
         }
         //still we need to make immutable copy
         //
-        //download Guvava library from google and add into project
+        //download Guava library from google and add into project
         //then just import it
         //
         return  ImmutableMap.copyOf(emptySquareMap);
@@ -31,9 +32,9 @@ public abstract class  Square {
 
 
     //factory method that can only create square
-    public static Square createSquare(final int squareNumber, final Peice peice){
-        if(peice!=null){
-            return  new OccupiedSquare(squareNumber,peice);
+    public static Square createSquare(final int squareNumber, final Piece piece){
+        if(piece !=null){
+            return  new OccupiedSquare(squareNumber, piece);
         }
         else {
             return  EMPTY_SQUARES.get(squareNumber);
@@ -45,6 +46,6 @@ public abstract class  Square {
     }
     //Public methods
     public abstract boolean isEmpty();
-    public abstract Peice getPeice();
+    public abstract Piece getPiece();
 
 }
