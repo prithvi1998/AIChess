@@ -1,5 +1,4 @@
 package AI.chess.board;
-import AI.chess.peice.Piece;
 
 public final class OccupiedSquare extends Square{
     //Private variables
