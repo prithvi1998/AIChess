@@ -7,11 +7,11 @@ import java.util.List;
 
 public abstract class Peice {
 
-    protected int peicePosition;
-    protected int color;   //-1 for white ,1 for black
+    public int peicePosition;
+    public int color;   //-1 for white ,1 for black
     protected boolean flag ;
 
-    Peice(int pos,int c){
+    Peice(int c,int pos){
         peicePosition = pos;
         color = c;
         flag = false;

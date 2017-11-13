@@ -11,8 +11,8 @@ public class pawn extends Peice {
 
     private int[] legal = {8, 16, 7, 9};
 
-    pawn(int pos, int c) {
-        super(pos, c);
+    public pawn(int c, int pos) {
+        super(c, pos);
     }
 
     public List<Move> LegalMoves(Board board) {

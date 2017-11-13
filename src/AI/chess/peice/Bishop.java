@@ -12,8 +12,8 @@ public class Bishop extends Peice{
 
     private int[] legal = {-9,-7,9,7};
 
-    Bishop(int pos, int c) {
-        super(pos, c);
+    public Bishop(int c, int pos) {
+        super(c, pos);
     }
 
     public List<Move> LegalMoves(Board board) {

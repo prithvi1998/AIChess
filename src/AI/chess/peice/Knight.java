@@ -12,8 +12,8 @@ public class Knight extends Peice {
 
     private  int[] legal = {-17, -15, -10, -6, 6, 10, 15, 17};
 
-    Knight(int pos, int c) {
-        super(pos, c);
+    public Knight(int c, int pos) {
+        super(c, pos);
     }
 
     public List<Move> LegalMoves(Board board) {

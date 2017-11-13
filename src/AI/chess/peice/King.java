@@ -12,8 +12,8 @@ public class King extends Peice{
 
     private int[] legal = {1,7,8,9,-1,-7,-8,-9};
 
-    King(int pos, int c) {
-        super(pos, c);
+    public King(int c, int pos) {
+        super(c, pos);
     }
 
     public List<Move> LegalMoves(Board board) {

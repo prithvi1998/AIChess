@@ -12,8 +12,8 @@ public class Rook extends Peice {
 
     private int[] legal = {-1,-8,1,8};
 
-    Rook(int pos, int c) {
-        super(pos, c);
+    public Rook(int c, int pos) {
+        super(c, pos);
     }
 
     public List<Move> LegalMoves(Board board) {
