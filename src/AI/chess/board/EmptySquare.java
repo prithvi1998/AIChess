@@ -7,8 +7,9 @@ public final class EmptySquare extends Square{
     public boolean isEmpty(){
         return true;
     }
-    public Piece getPiece(){
+    public Piece getPeice(){
         return null;
     }
 }
 //empty git :)
+//m
