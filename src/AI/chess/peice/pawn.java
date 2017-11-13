@@ -9,7 +9,7 @@ import java.util.List;
 
 public class pawn extends Peice {
 
-    private int[] legal = {8,16};
+    private int[] legal = {8, 16, 7, 9};
 
     pawn(int pos, int c) {
         super(pos, c);
@@ -19,22 +19,42 @@ public class pawn extends Peice {
 
         List<Move> legalMoves = new ArrayList<>();
 
-        for(int i : legal){
-            int temp = this.peicePosition + (this.color*i);
-            if(!BoardUtils.isvalid(temp))
-                continue;
-            if(i ==8 && board.getSqare(temp).isEmpty()) {
-                legalMoves.add(new Move.NormalMove(board,this,temp));
-            }
-            else if(i==16 && this.isSet() && (BoardUtils.SECOND_ROW[this.peicePosition] && (this.color == 1)
-                    ||BoardUtils.SEVENTH_ROW[this.peicePosition] && (this.color == -1)))
-            {
-                    int behind = this.peicePosition + (this.color * 8);
-                    if(board.getSquare(behind).isEmpty() && board.getSquare(temp).isEmpty()){
+        for (int i : legal) {
 
+            int temp = this.peicePosition + (this.color * i);
+            if (!BoardUtils.isvalid(temp))
+                continue;
+            if (i == 8 && board.getSquare(temp).isEmpty()) {
+                legalMoves.add(new Move.NormalMove(board, this, temp));
+            } else if (i == 16 && this.isSet() && (BoardUtils.SECOND_ROW[this.peicePosition] && (this.color == 1)
+                    || BoardUtils.SEVENTH_ROW[this.peicePosition] && (this.color == -1))) {
+                int behind = this.peicePosition + (this.color * 8);
+                if (board.getSquare(behind).isEmpty() && board.getSquare(temp).isEmpty()) {
+                    legalMoves.add(new Move.NormalMove(board, this, temp));
+                }
+            } else if (i == 7 &&
+                    !((BoardUtils.EIGHTH_COLUMN[this.peicePosition] && (this.color == -1)) ||
+                            (BoardUtils.FIRST_COLUMN[this.peicePosition] && (this.color == 1)))) {
+                if (!board.getSquare(temp).isEmpty()) {
+                    Peice p = board.getSquare(temp).getPeice();
+                    if (this.color != p.color) {
+                        legalMoves.add(new Move.NormalMove(board, this, temp));
                     }
+                }
+
+            } else if (i == 9 &&
+                    !((BoardUtils.FIRST_COLUMN[this.peicePosition] && (this.color == -1)) ||
+                            (BoardUtils.EIGHTH_COLUMN[this.peicePosition] && (this.color == 1)))) {
+                if (!board.getSquare(temp).isEmpty()) {
+                    Peice p = board.getSquare(temp).getPeice();
+                    if (this.color != p.color) {
+                        legalMoves.add(new Move.NormalMove(board, this, temp));
+                    }
+                }
+
+
             }
         }
-        return legalMoves;
+            return legalMoves;
     }
 }

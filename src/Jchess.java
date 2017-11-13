@@ -1,4 +1,4 @@
-package AI.chess;
+
 
 import AI.chess.gui.Table;
 public class Jchess {

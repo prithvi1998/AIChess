@@ -44,11 +44,6 @@ public class Knight extends Peice {
         return legalMoves;
     }
 
-    @Override
-    public String toString() {
-        return this.pieceType.toString();
-    }
-
     private static boolean isFirstColumnExclusion(final int pos, final int off) {
         return BoardUtils.FIRST_COLUMN[pos] && ((off == -17) ||
                 (off== -10) || (off== 6) || (off == 15));
