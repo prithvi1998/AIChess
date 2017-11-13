@@ -1,7 +1,7 @@
 package AI.chess.gui;
 
 
-//TODO in highlight for leagal move feature still pawn.java file has to make changes video number 37.
+//TODO in highlight for legal move feature still pawn.java file has to make changes video number 37.
 import AI.chess.board.Board;
 import AI.chess.board.Move;
 import AI.chess.board.Square;
@@ -54,8 +54,8 @@ public class Table {
         //set dimensions for outer chess board
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
         //create chess board
-        this.chessBoard = Board.createStandardBoard();
-        //create a board panel and add it to the center of the gameframe layout
+        this.chessBoard = Board.initial();
+        //create a board panel and add it to the center of the game frame layout
         this.boardPanel = new BoardPanel();
         this.boardDirection = BoardDirection.NORMAL;
         this.highlightLegalMoves = false;
@@ -230,7 +230,7 @@ public class Table {
                         }
                     }
                     else if(isRightMouseButton(e)){
-                        //just cancle if there was some Peice was selected
+                        //just cancel if there was some Peice was selected
                         sourceSquare = null;
                         destinationSquare = null;
                         humanMovedPeice = null;

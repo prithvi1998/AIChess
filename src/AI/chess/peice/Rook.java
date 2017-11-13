@@ -46,6 +46,11 @@ public class Rook extends Peice {
         return legalMoves;
     }
 
+    @Override
+    public String toString() {
+        return PeiceType.ROOK.toString();
+    }
+
     private static boolean isFirstColumnExclusion(final int pos, final int off) {
         return BoardUtils.FIRST_COLUMN[pos] && ((off == -1));
     }

@@ -45,6 +45,10 @@ public class Queen extends Peice {
         }
         return legalMoves;
     }
+    @Override
+    public String toString() {
+        return PeiceType.QUEEN.toString();
+    }
 
     private static boolean isFirstColumnExclusion(final int pos, final int off) {
         return BoardUtils.FIRST_COLUMN[pos] && ((off == -9) || (off== 7)|| (off == -1));

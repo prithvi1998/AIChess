@@ -15,6 +15,11 @@ public class pawn extends Peice {
         super(c, pos);
     }
 
+    @Override
+    public String toString() {
+        return PeiceType.PAWN.toString();
+    }
+
     public List<Move> LegalMoves(Board board) {
 
         List<Move> legalMoves = new ArrayList<>();

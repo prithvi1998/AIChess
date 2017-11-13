@@ -42,6 +42,12 @@ public class King extends Peice{
         }
         return legalMoves;
     }
+
+    @Override
+    public String toString() {
+        return PeiceType.KING.toString();
+    }
+
     private static boolean isFirstColumnExclusion(final int pos, final int off) {
         return BoardUtils.FIRST_COLUMN[pos] && ((off == -9) ||
                 (off== -1) || (off== 7));

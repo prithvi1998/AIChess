@@ -21,4 +21,24 @@ public abstract class Peice {
         return this.flag;
     }
     public abstract List<Move> LegalMoves(Board board);
+
+    public enum PeiceType{
+
+        PAWN("P"),
+        KNIGHT("N"),
+        QUEEN("Q"),
+        KING("K"),
+        BISHOP("B"),
+        ROOK("R");
+
+        private String peiceName;
+        PeiceType(String peiceName){
+            this.peiceName = peiceName;
+        }
+
+        @Override
+        public String toString() {
+            return this.peiceName;
+        }
+    }
 }

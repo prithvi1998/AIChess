@@ -16,4 +16,8 @@ public final class OccupiedSquare extends Square{
     public Peice getPeice(){
         return here;
     }
+    public String toString() {
+        return (getPeice().color == 1) ?
+                getPeice().toString().toLowerCase():getPeice().toString();
+    }
 }
