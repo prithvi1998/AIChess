@@ -1,5 +1,6 @@
 package AI.chess.player;
-import ...
+import AI.chess.board.Board;
+import AI.chess.board.Move;
 
 public class MoveTransition {
     private final Board transitionBoard;
