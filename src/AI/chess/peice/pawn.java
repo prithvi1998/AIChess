@@ -12,7 +12,12 @@ public class pawn extends Peice {
     private int[] legal = {8, 16, 7, 9};
 
     public pawn(int c, int pos) {
-        super(c, pos);
+        super(PeiceType.PAWN,c, pos);
+    }
+
+    @Override
+    public pawn movePeice(Move move) {
+        return new pawn(move.getMpeice().color,move.getDestination());
     }
 
     @Override

@@ -1,25 +1,36 @@
 package AI.chess.board;
 
 import AI.chess.peice.*;
+import AI.chess.player.BlackPlayer;
+import AI.chess.player.Player;
+import AI.chess.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Board {
 
     private List<Square> gameBoard;
     private Collection<Peice> BlackPeices;
     private Collection<Peice> WhitePeices;
-    final Collection<Move> whiteStandardMoves = calculateLegalMoves(this.WhitePeices);
-    final Collection<Move> blackStandardMoves = calculateLegalMoves(this.BlackPeices);
+
+    private WhitePlayer whitePlayer;
+    private BlackPlayer blackPlayer;
+    private Player currentPlayer;
 
     private Board(Builder builder){
             this.gameBoard = createGameBoard(builder);
             this.BlackPeices = calculateActivePeices(this.gameBoard , 1);
             this.WhitePeices = calculateActivePeices(this.gameBoard , -1);
+            Collection<Move> whiteStandardMoves = calculateLegalMoves(this.WhitePeices);
+            Collection<Move> blackStandardMoves = calculateLegalMoves(this.BlackPeices);
+            this.whitePlayer = new WhitePlayer(this,whiteStandardMoves,blackStandardMoves);
+            this.blackPlayer = new BlackPlayer(this,whiteStandardMoves,blackStandardMoves);
+            this.currentPlayer = builder.choosePlayer(this.whitePlayer,this.blackPlayer);
+    }
+
+    public Player currentPlayer() {
+        return currentPlayer;
     }
 
     private static Collection<Peice> calculateActivePeices(List<Square> gameBoard, int i) {
@@ -44,6 +55,21 @@ public class Board {
 
     public Square getSquare(int x){
         return gameBoard.get(x);
+    }
+
+    public Collection<Peice> getBlackPeices(){
+        return this.BlackPeices;
+    }
+    public Collection<Peice> getWhitePeices(){
+        return this.WhitePeices;
+    }
+
+    public Player whitePlayer(){
+        return  this.whitePlayer;
+    }
+
+    public Player blackPlayer(){
+        return  this.blackPlayer;
     }
 
     private static List<Square> createGameBoard(Builder b){
@@ -122,6 +148,7 @@ public class Board {
         int nextChance;
 
         public Builder(){
+            this.config = new HashMap<>();
 
         }
 
@@ -138,6 +165,14 @@ public class Board {
 
         public Board build(){
             return new Board(this);
+        }
+
+        public Player choosePlayer(WhitePlayer w,BlackPlayer b) {
+            if(this.nextChance == 1){
+                return b;
+            }
+            else
+                return w;
         }
     }
 }

@@ -13,7 +13,12 @@ public class Knight extends Peice {
     private  int[] legal = {-17, -15, -10, -6, 6, 10, 15, 17};
 
     public Knight(int c, int pos) {
-        super(c, pos);
+        super(PeiceType.KNIGHT,c, pos);
+    }
+
+    @Override
+    public Knight movePeice(Move move) {
+        return new Knight(move.getMpeice().color,move.getDestination());
     }
 
     public List<Move> LegalMoves(Board board) {

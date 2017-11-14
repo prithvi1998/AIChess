@@ -13,7 +13,11 @@ public class Queen extends Peice {
     private int[] legal = {-1,-8,1,8,9,7,-7,-9};
 
     public Queen(int c, int pos) {
-        super(c, pos);
+        super(PeiceType.QUEEN,c, pos);
+    }
+    @Override
+    public Queen movePeice(Move move) {
+        return new Queen(move.getMpeice().color,move.getDestination());
     }
 
     public List<Move> LegalMoves(Board board) {

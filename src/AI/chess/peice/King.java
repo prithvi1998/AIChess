@@ -13,9 +13,13 @@ public class King extends Peice{
     private int[] legal = {1,7,8,9,-1,-7,-8,-9};
 
     public King(int c, int pos) {
-        super(c, pos);
+        super(PeiceType.KING,c, pos);
     }
 
+    @Override
+    public King movePeice(Move move) {
+        return new King(move.getMpeice().color,move.getDestination());
+    }
     public List<Move> LegalMoves(Board board) {
 
         List<Move> legalMoves = new ArrayList<>();

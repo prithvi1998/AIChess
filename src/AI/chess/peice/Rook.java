@@ -13,9 +13,13 @@ public class Rook extends Peice {
     private int[] legal = {-1,-8,1,8};
 
     public Rook(int c, int pos) {
-        super(c, pos);
+        super(PeiceType.ROOK,c, pos);
     }
 
+    @Override
+    public Rook movePeice(Move move) {
+        return new Rook(move.getMpeice().color,move.getDestination());
+    }
     public List<Move> LegalMoves(Board board) {
 
         List<Move> legalMoves = new ArrayList<>();
