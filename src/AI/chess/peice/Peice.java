@@ -10,13 +10,38 @@ public abstract class Peice {
     protected PeiceType peiceType;
     public int peicePosition;
     public int color;   //-1 for white ,1 for black
-    protected boolean flag ;
+    public  boolean flag ;
+    private int hash;
 
     Peice(PeiceType peiceType,int c,int pos){
         peicePosition = pos;
         color = c;
         flag = false;
         this.peiceType = peiceType;
+        this.hash = computeHash();
+    }
+
+    private int computeHash() {
+        int r =peiceType.hashCode();
+        r = 31*r+color;
+        r = 31*r+peicePosition;
+        r = 31*r+ (flag?1:0);
+        return r;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o)
+            return true;
+        if(!(o instanceof Peice))
+            return false;
+        Peice otherPeice = (Peice)o;
+        return peicePosition == otherPeice.peicePosition && color == otherPeice.color && peiceType == otherPeice.peiceType && flag == otherPeice.flag;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.hash;
     }
 
     public PeiceType getPeiceType() {

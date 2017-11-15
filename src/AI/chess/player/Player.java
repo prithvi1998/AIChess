@@ -4,6 +4,8 @@ import AI.chess.board.Board;
 import AI.chess.board.Move;
 import AI.chess.peice.King;
 import AI.chess.peice.Peice;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,17 +15,17 @@ public abstract class Player {
 
     protected Board board;
     protected King playerKing;
-    protected Collection<Move> legalMoves;
+    public Collection<Move> legalMoves;
     private boolean isInCheck;
 
     Player(Board board,Collection<Move> legalMoves,Collection<Move> opponentMoves){
         this.board = board;
         this.playerKing = findKing();
-        this.legalMoves = legalMoves;
+        this.legalMoves = ImmutableList.copyOf(Iterables.concat(legalMoves,calculateKingCastles(legalMoves,opponentMoves)));
         this.isInCheck = !Player.calculateAttackOnSquare(this.playerKing.peicePosition,opponentMoves).isEmpty();
     }
 
-    private static Collection<Move> calculateAttackOnSquare(int peicePosition, Collection<Move> opponentMoves) {
+    protected static Collection<Move> calculateAttackOnSquare(int peicePosition, Collection<Move> opponentMoves) {
         List<Move> AttackMoves = new ArrayList<>();
         for(Move m : opponentMoves){
             if(peicePosition == m.getDestination()){
@@ -70,6 +72,7 @@ public abstract class Player {
         return false;
     }
 
+    protected abstract Collection<Move> calculateKingCastles(Collection<Move> playerLegals , Collection<Move> opponentLegals );
     public boolean isInStalemate(){
         return !this.isInCheck && !haveEscape();
     }

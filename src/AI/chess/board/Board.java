@@ -5,6 +5,7 @@ import AI.chess.player.BlackPlayer;
 import AI.chess.player.Player;
 import AI.chess.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 
 import java.util.*;
 
@@ -142,10 +143,15 @@ public class Board {
         return sq.toString();
     }
 
+    public Iterable<Move> getAllLegalMoves() {
+        return Iterables.concat(this.whitePlayer.legalMoves ,this.blackPlayer.legalMoves);
+    }
+
     public static class Builder{
 
         Map<Integer,Peice> config;
         int nextChance;
+        pawn enpassantPawn;
 
         public Builder(){
             this.config = new HashMap<>();
@@ -173,6 +179,10 @@ public class Board {
             }
             else
                 return w;
+        }
+
+        public void setEnpassantPawn(pawn enpassantPawn) {
+            this.enpassantPawn = enpassantPawn;
         }
     }
 }

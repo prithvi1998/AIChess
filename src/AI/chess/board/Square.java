@@ -40,5 +40,8 @@ public abstract class  Square {
     //Public methods
     public abstract boolean isEmpty();
     public abstract Peice getPeice();
+    public int getSquareNumber(){
+        return  squareNumber;
+    }
 
 }
