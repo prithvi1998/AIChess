@@ -3,6 +3,7 @@ package AI.chess.gui;
 
 //TODO in highlight for legal move feature still pawn.java file has to make changes video number 37.
 import AI.chess.board.Board;
+import AI.chess.board.BoardUtils;
 import AI.chess.board.Move;
 import AI.chess.board.Square;
 import AI.chess.peice.Peice;
@@ -133,14 +134,15 @@ public class Table {
             }
 
             @Override
-            BoardDirection oppsite(){
+            BoardDirection opposite(){
                 return FLIPPED;
             }
         },
         FLIPPED {
             @Override
             List<TilePanel> traverse(final List<TilePanel> boardTiles){
-                return this.reverse(boardTiles);
+                //return this.reverse(boardTiles);
+                return boardTiles;
             }
             @Override BoardDirection opposite(){
                 return NORMAL;
@@ -210,7 +212,7 @@ public class Table {
                         if(sourceSquare==null){
                             sourceSquare = chessBoard.getSquare(tileId);
                             humanMovedPeice = sourceSquare.getPeice();
-                            //incase we clicked on empty tile
+                            //in case we clicked on empty tile
                             if(humanMovedPeice==null){
                                 sourceSquare = null;
                             }
@@ -278,16 +280,15 @@ public class Table {
             this.removeAll();
             if(!board.getSquare(this.tileId).isEmpty()){
 
-                try {
+              /*  try {
 
                     final BufferedImage image =
-                            ImageIO.read(new File(defaultPeiceImagesPath+board.getSquare(this.tileId).getPeice().getPeiceAlliace().toString.substring(0,1) +
-                            board.getSquare(this.tileId).getPeice().toString()+".gif"));
+                            ImageIO.read(new File(defaultPeiceImagesPath+board.getSquare(this.tileId).getPeice().getPeiceAlliace().toString.substring(0,1) + board.getSquare(this.tileId).getPeice().toString()+".gif"));
                     add(new JLabel(new ImageIcon(image)));
                 }
                 catch (IOException e){
                     e.printStackTrace();
-                }
+                }*/
             }
         }
 
@@ -295,11 +296,12 @@ public class Table {
 
         private void highlightLegals(final Board board){
             if(highlightLegalMoves){
-                for(final Move move : peiceLegalMoves(board)) {
-                    if(move.getDestinationcoordinates()==this.tileId){
+                for(Move move : peiceLegalMoves(board)) {
+                    if(move.getDestination()==this.tileId){
                         try {
                             add(new JLabel(new ImageIcon(ImageIO.read(new File("sprites/green_dot.png")))));
-                        }catch (Exception e){
+                        }
+                        catch (Exception e){
                             e.printStackTrace();
                         }
                     }
@@ -307,15 +309,15 @@ public class Table {
             }
         }
 
-        private Collection<Move> pieceLegalMoves(final  Board board){
-            if(humanMovedPeice !=null && humanMovedPeice.getPeiceAlliance()==board.currentPlayer().getAlliance()){
-                return humanMovedPeice.calculateLegalMoves(board);
+        private Collection<Move> peiceLegalMoves(final  Board board){
+            if(humanMovedPeice !=null && humanMovedPeice.color==board.currentPlayer().getColor()){
+                return humanMovedPeice.LegalMoves(board);
             }
             return Collections.emptyList();
         }
 
         private void assignTileColor() {
-          /*  if(BoardUtils.FIRST_ROW[this.tileID]||BoardUtils.THIRD_ROW[this.tileID]||BoardUtils.FIFTH_ROW[this.tileID]||BoardUtils.SEVENTH_ROW[this.tileID]||)
+            if(BoardUtils.FIRST_ROW[this.tileID]||BoardUtils.THIRD_ROW[this.tileID]||BoardUtils.FIFTH_ROW[this.tileID]||BoardUtils.SEVENTH_ROW[this.tileID]||)
                 {
                     setBackground(this.tileId%2==0?lighTileColor:darkTileColor);
                 }
@@ -323,7 +325,7 @@ public class Table {
                 {
                    setBackground(this.tileId%2!=0?lighTileColor:darkTileColor);
                 }
-        */
+
         }
     }
 
