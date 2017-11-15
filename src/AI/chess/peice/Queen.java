@@ -12,8 +12,12 @@ public class Queen extends Peice {
 
     private int[] legal = {-1,-8,1,8,9,7,-7,-9};
 
-    Queen(int pos, int c) {
-        super(pos, c);
+    public Queen(int c, int pos) {
+        super(PeiceType.QUEEN,c, pos);
+    }
+    @Override
+    public Queen movePeice(Move move) {
+        return new Queen(move.getMpeice().color,move.getDestination());
     }
 
     public List<Move> LegalMoves(Board board) {
@@ -44,6 +48,10 @@ public class Queen extends Peice {
             }
         }
         return legalMoves;
+    }
+    @Override
+    public String toString() {
+        return PeiceType.QUEEN.toString();
     }
 
     private static boolean isFirstColumnExclusion(final int pos, final int off) {

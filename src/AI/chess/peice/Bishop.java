@@ -12,8 +12,13 @@ public class Bishop extends Peice{
 
     private int[] legal = {-9,-7,9,7};
 
-    Bishop(int pos, int c) {
-        super(pos, c);
+    public Bishop(int c, int pos) {
+        super(PeiceType.BISHOP,c, pos);
+    }
+
+    @Override
+    public Bishop movePeice(Move move) {
+        return new Bishop(move.getMpeice().color,move.getDestination());
     }
 
     public List<Move> LegalMoves(Board board) {
@@ -46,6 +51,10 @@ public class Bishop extends Peice{
         return legalMoves;
     }
 
+    @Override
+    public String toString() {
+        return PeiceType.BISHOP.toString();
+    }
     private static boolean isFirstColumnExclusion(final int pos, final int off) {
         return BoardUtils.FIRST_COLUMN[pos] && ((off == -9) || (off== 7));
     }

@@ -11,5 +11,8 @@ public final class EmptySquare extends Square{
     public Peice getPeice(){
         return null;
     }
+    public String toString() {
+        return "-";
+    }
 }
 

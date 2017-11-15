@@ -1,8 +1,9 @@
 package AI.chess.gui;
 
 
-//TODO in highlight for leagal move feature still pawn.java file has to make changes video number 37.
+//TODO in highlight for legal move feature still pawn.java file has to make changes video number 37.
 import AI.chess.board.Board;
+import AI.chess.board.BoardUtils;
 import AI.chess.board.Move;
 import AI.chess.board.Square;
 import AI.chess.peice.Peice;
@@ -54,8 +55,8 @@ public class Table {
         //set dimensions for outer chess board
         this.gameFrame.setSize(OUTER_FRAME_DIMENSION);
         //create chess board
-        this.chessBoard = Board.createStandardBoard();
-        //create a board panel and add it to the center of the gameframe layout
+        this.chessBoard = Board.initial();
+        //create a board panel and add it to the center of the game frame layout
         this.boardPanel = new BoardPanel();
         this.boardDirection = BoardDirection.NORMAL;
         this.highlightLegalMoves = false;
@@ -133,14 +134,15 @@ public class Table {
             }
 
             @Override
-            BoardDirection oppsite(){
+            BoardDirection opposite(){
                 return FLIPPED;
             }
         },
         FLIPPED {
             @Override
             List<TilePanel> traverse(final List<TilePanel> boardTiles){
-                return this.reverse(boardTiles);
+                //return this.reverse(boardTiles);
+                return boardTiles;
             }
             @Override BoardDirection opposite(){
                 return NORMAL;
@@ -210,18 +212,18 @@ public class Table {
                         if(sourceSquare==null){
                             sourceSquare = chessBoard.getSquare(tileId);
                             humanMovedPeice = sourceSquare.getPeice();
-                            //incase we clicked on empty tile
+                            //in case we clicked on empty tile
                             if(humanMovedPeice==null){
                                 sourceSquare = null;
                             }
                         }else{
                             //its a second click. sourceSquare is not null
                             destinationSquare = chessBoard.getSquare(tileId);
-                            final Move move = Move.MoveFactory.createMove(chessBoard,sourceSquare.getSquareCordinate(),destinationSquare.getSquareCordinate());
+                            final Move move = Move.MoveFactory.createMove(chessBoard,sourceSquare.getSquareNumber(),destinationSquare.getSquareNumber());
                             final MoveTransition transition = chessBoard.currentPlayer().makeMove(move);
                             if(transition.getMoveStatus().isDone()){
                                 chessBoard = transition.getTransitionBoard();
-                                //TODO add the move that was made to the move log in case we are implimenting that also
+                                //TODO add the move that was made to the move log in case we are implementing that also
                             }
                             //now after making the move just reset all the variable to null
                             sourceSquare = null;
@@ -230,7 +232,7 @@ public class Table {
                         }
                     }
                     else if(isRightMouseButton(e)){
-                        //just cancle if there was some Peice was selected
+                        //just cancel if there was some Peice was selected
                         sourceSquare = null;
                         destinationSquare = null;
                         humanMovedPeice = null;
@@ -278,16 +280,15 @@ public class Table {
             this.removeAll();
             if(!board.getSquare(this.tileId).isEmpty()){
 
-                try {
+              /*  try {
 
                     final BufferedImage image =
-                            ImageIO.read(new File(defaultPeiceImagesPath+board.getSquare(this.tileId).getPeice().getPeiceAlliace().toString.substring(0,1) +
-                            board.getSquare(this.tileId).getPeice().toStirng()+".gif"));
+                            ImageIO.read(new File(defaultPeiceImagesPath+board.getSquare(this.tileId).getPeice().getPeiceAlliace().toString.substring(0,1) + board.getSquare(this.tileId).getPeice().toString()+".gif"));
                     add(new JLabel(new ImageIcon(image)));
                 }
                 catch (IOException e){
                     e.printStackTrace();
-                }
+                }*/
             }
         }
 
@@ -295,11 +296,12 @@ public class Table {
 
         private void highlightLegals(final Board board){
             if(highlightLegalMoves){
-                for(final Move move : peiceLegalMoves(board)) {
-                    if(move.getDestinationcoordinates()==this.tileId){
+                for(Move move : peiceLegalMoves(board)) {
+                    if(move.getDestination()==this.tileId){
                         try {
                             add(new JLabel(new ImageIcon(ImageIO.read(new File("sprites/green_dot.png")))));
-                        }catch (Exception e){
+                        }
+                        catch (Exception e){
                             e.printStackTrace();
                         }
                     }
@@ -307,15 +309,15 @@ public class Table {
             }
         }
 
-        private Collection<Move> pieceLegalMoves(final  Board board){
-            if(humanMovedPeice !=null && humanMovedPeice.getPeiceAlliance()==board.currentPlayer().getAlliance()){
-                return humanMovedPeice.calculateLegalMoves(board);
+        private Collection<Move> peiceLegalMoves(final  Board board){
+            if(humanMovedPeice !=null && humanMovedPeice.color==board.currentPlayer().getColor()){
+                return humanMovedPeice.LegalMoves(board);
             }
             return Collections.emptyList();
         }
 
         private void assignTileColor() {
-          /*  if(BoardUtils.FIRST_ROW[this.tileID]||BoardUtils.THIRD_ROW[this.tileID]||BoardUtils.FIFTH_ROW[this.tileID]||BoardUtils.SEVENTH_ROW[this.tileID]||)
+            if(BoardUtils.FIRST_ROW[this.tileID]||BoardUtils.THIRD_ROW[this.tileID]||BoardUtils.FIFTH_ROW[this.tileID]||BoardUtils.SEVENTH_ROW[this.tileID]||)
                 {
                     setBackground(this.tileId%2==0?lighTileColor:darkTileColor);
                 }
@@ -323,7 +325,7 @@ public class Table {
                 {
                    setBackground(this.tileId%2!=0?lighTileColor:darkTileColor);
                 }
-        */
+
         }
     }
 

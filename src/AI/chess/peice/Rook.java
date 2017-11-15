@@ -12,10 +12,14 @@ public class Rook extends Peice {
 
     private int[] legal = {-1,-8,1,8};
 
-    Rook(int pos, int c) {
-        super(pos, c);
+    public Rook(int c, int pos) {
+        super(PeiceType.ROOK,c, pos);
     }
 
+    @Override
+    public Rook movePeice(Move move) {
+        return new Rook(move.getMpeice().color,move.getDestination());
+    }
     public List<Move> LegalMoves(Board board) {
 
         List<Move> legalMoves = new ArrayList<>();
@@ -44,6 +48,11 @@ public class Rook extends Peice {
             }
         }
         return legalMoves;
+    }
+
+    @Override
+    public String toString() {
+        return PeiceType.ROOK.toString();
     }
 
     private static boolean isFirstColumnExclusion(final int pos, final int off) {

@@ -12,8 +12,13 @@ public class Knight extends Peice {
 
     private  int[] legal = {-17, -15, -10, -6, 6, 10, 15, 17};
 
-    Knight(int pos, int c) {
-        super(pos, c);
+    public Knight(int c, int pos) {
+        super(PeiceType.KNIGHT,c, pos);
+    }
+
+    @Override
+    public Knight movePeice(Move move) {
+        return new Knight(move.getMpeice().color,move.getDestination());
     }
 
     public List<Move> LegalMoves(Board board) {
@@ -44,6 +49,10 @@ public class Knight extends Peice {
         return legalMoves;
     }
 
+    @Override
+    public String toString() {
+        return PeiceType.KNIGHT.toString();
+    }
     private static boolean isFirstColumnExclusion(final int pos, final int off) {
         return BoardUtils.FIRST_COLUMN[pos] && ((off == -17) ||
                 (off== -10) || (off== 6) || (off == 15));

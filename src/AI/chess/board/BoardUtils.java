@@ -41,8 +41,26 @@ public class BoardUtils {
             true,false,false,false,false,false,false,false,
             true,false,false,false,false,false,false,false
     };
-    public static final boolean[] SECOND_ROW = null;
-    public static final boolean[] SEVENTH_ROW = null;
+    public static final boolean[] SECOND_ROW = {
+            false,false,false,false,false,false,false,false,
+            true,true,true,true,true,true,true,true,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false
+    };
+    public static final boolean[] SEVENTH_ROW = {
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            false,false,false,false,false,false,false,false,
+            true,true,true,true,true,true,true,true,
+            false,false,false,false,false,false,false,false
+    };
 
 
     public static boolean isvalid(int temp) {
