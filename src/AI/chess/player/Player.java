@@ -63,19 +63,13 @@ public abstract class Player {
     }
 
     protected boolean haveEscape() {
-        //TODO resolve here errors later
-        /*for(Move m :  legalMoves){
+        for(Move m :  legalMoves){
             MoveTransition transition = makeMove(m);
-            if(transition.getMoveStatus().isDone()){final Collection<Move> kingAttacks = Player.calculateAttackOnSquare(
-        b.currentPlayer().getOpponent().getPlayerKing().getPiecePosition(),
-        b.currentPlayer().getLegalMoves());
-        if (!kingAttacks.isEmpty()) {
-                return new MoveTransition(this.board, this.board, move, MoveStatus.LEAVES_PLAYER_IN_CHECK);
-                }
-                return new MoveTransition(this.board, transitionedBoard, move, MoveStatus.DONE);
+            if(transition.getMoveStatus().isDone())
+            {
                 return true;
             }
-        }*/
+        }
         return false;
     }
 

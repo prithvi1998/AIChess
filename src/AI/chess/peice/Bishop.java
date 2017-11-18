@@ -12,13 +12,9 @@ public class Bishop extends Peice{
 
     private int[] legal = {-9,-7,9,7};
 
-    public Bishop(int c,int pos) {
+    public Bishop(int c, int pos) {
         super(PeiceType.BISHOP,c, pos,true);
     }
-    public Bishop(int c, int pos,boolean flag) {
-        super(PeiceType.BISHOP,c, pos,flag);
-    }
-
 
     @Override
     public Bishop movePeice(Move move) {

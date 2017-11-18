@@ -9,6 +9,7 @@ public abstract class Move {
     Board board;
     Peice mpeice;
     private int destination;
+    boolean isFirstMove;
 
     public static Move NULL_MOVE = new NullMove();
 
@@ -16,12 +17,14 @@ public abstract class Move {
         this.board =x;
         this.mpeice =y;
         this.destination =z;
+        this.isFirstMove = y.flag;
     }
 
     Move(Board x,int z){
         this.board =x;
         this.mpeice =null;
         this.destination =z;
+        this.isFirstMove = false;
     }
 
     @Override
@@ -29,7 +32,7 @@ public abstract class Move {
         int r =1;
         r = 31*r + this.destination;
         r = 31*r + this.mpeice.hashCode();
-
+        r = 31*r + this.mpeice.peicePosition;
         return r;
     }
 
@@ -243,6 +246,7 @@ public abstract class Move {
         public Board execute() {
             throw new RuntimeException("Null move Execution");
         }
+
         @Override
         public int getCurrentCoordinate(){
             return -1;
