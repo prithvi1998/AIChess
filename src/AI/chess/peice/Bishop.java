@@ -13,7 +13,7 @@ public class Bishop extends Peice{
     private int[] legal = {-9,-7,9,7};
 
     public Bishop(int c, int pos) {
-        super(PeiceType.BISHOP,c, pos);
+        super(PeiceType.BISHOP,c, pos,true);
     }
 
     @Override

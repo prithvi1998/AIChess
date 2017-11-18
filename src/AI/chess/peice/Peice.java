@@ -13,10 +13,10 @@ public abstract class Peice {
     public  boolean flag ;
     private int hash;
 
-    Peice(PeiceType peiceType,int c,int pos){
+    Peice(PeiceType peiceType,int c,int pos,boolean flag){
         peicePosition = pos;
         color = c;
-        flag = false;
+        this.flag = flag;
         this.peiceType = peiceType;
         this.hash = computeHash();
     }

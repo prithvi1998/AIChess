@@ -8,6 +8,7 @@ import AI.chess.board.Move;
 import AI.chess.board.Square;
 import AI.chess.peice.Peice;
 import AI.chess.player.MoveTransition;
+import com.google.common.collect.Lists;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,6 +25,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static javax.swing.SwingUtilities.invokeLater;
 import static javax.swing.SwingUtilities.isLeftMouseButton;
 import static javax.swing.SwingUtilities.isRightMouseButton;
 
@@ -44,6 +46,8 @@ public class Table {
     private static final Dimension BOARD_PANEL_DIMENSION = new Dimension(400,350);
     private static final Dimension TILE_PANEL_DIMENSION = new Dimension(10,10);
     private static String defaultPeiceImagesPath = "sprites/";
+    private Color lightTileColor = Color.decode("#FFFACD");
+    private Color darkTileColor = Color.decode("#593E1A");
 
     //constructor
     public Table(){
@@ -141,8 +145,8 @@ public class Table {
         FLIPPED {
             @Override
             List<TilePanel> traverse(final List<TilePanel> boardTiles){
-                //return this.reverse(boardTiles);
-                return boardTiles;
+                return Lists.reverse(boardTiles);
+                //return boardTiles;
             }
             @Override BoardDirection opposite(){
                 return NORMAL;
@@ -161,7 +165,7 @@ public class Table {
 
         BoardPanel(){
             //todo check GridBagLayout or just GridLayout
-            super(new GridBagLayout());
+            super(new GridLayout(8,8));
             this.boardTiles = new ArrayList<>();
             /*
                 here first declare BoardUtils class and related member that change it with below loop
@@ -237,6 +241,17 @@ public class Table {
                         destinationSquare = null;
                         humanMovedPeice = null;
                     }
+                    invokeLater(new Runnable() {
+                        public void run() {
+                            //gameHistoryPanel.redo(chessBoard, moveLog);
+                            //takenPiecesPanel.redo(moveLog);
+                            //if (gameSetup.isAIPlayer(chessBoard.currentPlayer())) {
+                            //Table.get().moveMadeUpdate(PlayerType.HUMAN);
+                            //}
+                            boardPanel.drawBoard(chessBoard);
+                            //debugPanel.redo();
+                        }
+                    });
                 }
 
                 @Override
@@ -266,6 +281,8 @@ public class Table {
         public void drawTile(final Board board){
             assignTileColor();
             assignTilePeiceIcon(board);
+            highlightLegals(board);
+            highlightTileBorder(board);
             validate();
             repaint();
         }
@@ -280,19 +297,17 @@ public class Table {
             this.removeAll();
             if(!board.getSquare(this.tileId).isEmpty()){
 
-              /*  try {
+                try {
 
                     final BufferedImage image =
-                            ImageIO.read(new File(defaultPeiceImagesPath+board.getSquare(this.tileId).getPeice().getPeiceAlliace().toString.substring(0,1) + board.getSquare(this.tileId).getPeice().toString()+".gif"));
+                    ImageIO.read(new File(defaultPeiceImagesPath+((board.getSquare(this.tileId).getPeice().color == -1)?"white":"black") + board.getSquare(this.tileId).getPeice().toString()+".png"));
                     add(new JLabel(new ImageIcon(image)));
                 }
                 catch (IOException e){
                     e.printStackTrace();
-                }*/
+                }
             }
         }
-
-        //to highlight legal moves
 
         private void highlightLegals(final Board board){
             if(highlightLegalMoves){
@@ -309,6 +324,17 @@ public class Table {
             }
         }
 
+
+        private void highlightTileBorder(final Board board) {
+            if(humanMovedPeice != null &&
+                    humanMovedPeice.color == board.currentPlayer().getColor() &&
+                    humanMovedPeice.color == this.tileId) {
+                setBorder(BorderFactory.createLineBorder(Color.cyan));
+            } else {
+                setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            }
+        }
+
         private Collection<Move> peiceLegalMoves(final  Board board){
             if(humanMovedPeice !=null && humanMovedPeice.color==board.currentPlayer().getColor()){
                 return humanMovedPeice.LegalMoves(board);
@@ -317,13 +343,13 @@ public class Table {
         }
 
         private void assignTileColor() {
-            if(BoardUtils.FIRST_ROW[this.tileID]||BoardUtils.THIRD_ROW[this.tileID]||BoardUtils.FIFTH_ROW[this.tileID]||BoardUtils.SEVENTH_ROW[this.tileID]||)
-                {
-                    setBackground(this.tileId%2==0?lighTileColor:darkTileColor);
+            if(BoardUtils.FIRST_ROW.get(this.tileId) || BoardUtils.THIRD_ROW.get(this.tileId) || BoardUtils.FIFTH_ROW.get(this.tileId) ||BoardUtils.SEVENTH_ROW[this.tileId])
+               {
+                    setBackground(this.tileId%2==0?lightTileColor:darkTileColor);
                 }
-            else if(BoardUtils.SECOND_ROW[this.tileID]||BoardUtils.FOURTH_ROW[this.tileID]||BoardUtils.SIXTH_ROW[this.tileID]||BoardUtils.EIGHTH_ROW[this.tileID]||)
-                {
-                   setBackground(this.tileId%2!=0?lighTileColor:darkTileColor);
+            else if(BoardUtils.SECOND_ROW[this.tileId]|| BoardUtils.FOURTH_ROW.get(this.tileId) || BoardUtils.SIXTH_ROW.get(this.tileId) || BoardUtils.EIGHTH_ROW.get(this.tileId) )
+              {
+                   setBackground(this.tileId%2!=0?lightTileColor:darkTileColor);
                 }
 
         }
