@@ -59,6 +59,6 @@ public class Rook extends Peice {
         return BoardUtils.FIRST_COLUMN[pos] && ((off == -1));
     }
     private static boolean isEighthColumnExclusion(final int pos, final int off) {
-        return BoardUtils.EIGHTH_COLUMN[pos] && ((off == -1));
+        return BoardUtils.EIGHTH_COLUMN[pos] && ((off == 1));
     }
 }
