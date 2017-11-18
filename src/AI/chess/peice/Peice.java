@@ -13,7 +13,7 @@ public abstract class Peice {
     public  boolean flag ;
     private int hash;
 
-    Peice(PeiceType peiceType,int c,int pos,boolean flag){
+    Peice(final PeiceType peiceType,final int c,final int pos,final boolean flag){
         peicePosition = pos;
         color = c;
         this.flag = flag;
@@ -47,6 +47,11 @@ public abstract class Peice {
     public PeiceType getPeiceType() {
         return this.peiceType;
     }
+
+    public int getPeiceValue(){
+        return this.peiceType.getPeiceValue();
+    }
+
     public abstract Peice movePeice(Move move);
 
     public boolean isSet(){
@@ -56,46 +61,48 @@ public abstract class Peice {
 
     public enum PeiceType{
 
-        PAWN("P") {
+        PAWN(100,"P") {
             @Override
             public boolean isKing() {
                 return false;
             }
         },
-        KNIGHT("N") {
+        KNIGHT(300,"N") {
             @Override
             public boolean isKing() {
                 return false;
             }
         },
-        QUEEN("Q") {
+        QUEEN(900,"Q") {
             @Override
             public boolean isKing() {
                 return false;
             }
         },
-        KING("K") {
+        KING(10000,"K") {
             @Override
             public boolean isKing() {
                 return true;
             }
         },
-        BISHOP("B") {
+        BISHOP(300,"B") {
             @Override
             public boolean isKing() {
                 return false;
             }
         },
-        ROOK("R") {
+        ROOK(500,"R") {
             @Override
             public boolean isKing() {
                 return false;
             }
         };
 
-        private String peiceName;
-        PeiceType(String peiceName){
+        private String peiceName;private int peiceValue;
+
+        PeiceType(int peiceValue,String peiceName) {
             this.peiceName = peiceName;
+            this.peiceValue = peiceValue;
         }
 
         @Override
@@ -103,6 +110,11 @@ public abstract class Peice {
             return this.peiceName;
         }
 
+        public int getPeiceValue() {
+            return peiceValue;
+        }
         public abstract boolean isKing();
+
+
     }
 }

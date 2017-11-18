@@ -11,8 +11,11 @@ public class pawn extends Peice {
 
     private int[] legal = {8, 16, 7, 9};
 
-    public pawn(int c, int pos) {
-        super(PeiceType.PAWN,c, pos);
+    public pawn(final int c,final int pos) {
+        super(PeiceType.PAWN,c, pos,true);
+    }
+    public pawn(final int c,final int pos,final boolean flag) {
+        super(PeiceType.PAWN,c, pos,flag);
     }
 
     @Override
@@ -36,11 +39,11 @@ public class pawn extends Peice {
                 continue;
             if (i == 8 && board.getSquare(temp).isEmpty()) {
                 legalMoves.add(new Move.NormalMove(board, this, temp));
-            } else if (i == 16 && this.isSet() && (BoardUtils.SECOND_ROW[this.peicePosition] && (this.color == 1)
-                    || BoardUtils.SEVENTH_ROW[this.peicePosition] && (this.color == -1))) {
+            } else if (i == 16 && this.isSet() && ((BoardUtils.SECOND_ROW[this.peicePosition] && (this.color == 1)
+                    || BoardUtils.SEVENTH_ROW[this.peicePosition] && (this.color == -1)))) {
                 int behind = this.peicePosition + (this.color * 8);
                 if (board.getSquare(behind).isEmpty() && board.getSquare(temp).isEmpty()) {
-                    legalMoves.add(new Move.NormalMove(board, this, temp));
+                    legalMoves.add(new Move.PawnJump(board, this, temp));
                 }
             } else if (i == 7 &&
                     !((BoardUtils.EIGHTH_COLUMN[this.peicePosition] && (this.color == -1)) ||
@@ -48,7 +51,8 @@ public class pawn extends Peice {
                 if (!board.getSquare(temp).isEmpty()) {
                     Peice p = board.getSquare(temp).getPeice();
                     if (this.color != p.color) {
-                        legalMoves.add(new Move.NormalMove(board, this, temp));
+
+                        legalMoves.add(new Move.PawnAttackMove(board, this, temp,p));
                     }
                 }
 

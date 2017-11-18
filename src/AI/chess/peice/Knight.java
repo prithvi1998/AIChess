@@ -12,8 +12,11 @@ public class Knight extends Peice {
 
     private  int[] legal = {-17, -15, -10, -6, 6, 10, 15, 17};
 
-    public Knight(int c, int pos) {
-        super(PeiceType.KNIGHT,c, pos);
+    public Knight(final int c,final int pos) {
+        super(PeiceType.KNIGHT,c, pos,true);
+    }
+    public Knight(final int c,final int pos,final boolean flag) {
+        super(PeiceType.KNIGHT,c, pos,flag);
     }
 
     @Override

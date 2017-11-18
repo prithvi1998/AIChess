@@ -18,6 +18,12 @@ public abstract class Move {
         this.destination =z;
     }
 
+    Move(Board x,int z){
+        this.board =x;
+        this.mpeice =null;
+        this.destination =z;
+    }
+
     @Override
     public int hashCode() {
         int r =1;
@@ -230,12 +236,16 @@ public abstract class Move {
     public static class NullMove extends Move{
 
         NullMove() {
-            super(null, null, -1);
+            super(null,-1);
         }
 
         @Override
         public Board execute() {
             throw new RuntimeException("Null move Execution");
+        }
+        @Override
+        public int getCurrentCoordinate(){
+            return -1;
         }
     }
 
