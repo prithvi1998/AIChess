@@ -12,8 +12,11 @@ public class King extends Peice{
 
     private int[] legal = {1,7,8,9,-1,-7,-8,-9};
 
-    public King(int c, int pos) {
-        super(PeiceType.KING,c, pos);
+    public King(int c,int pos) {
+        super(PeiceType.KING,c, pos,true);
+    }
+    public King(int c,int pos,boolean flag) {
+        super(PeiceType.KING,c, pos,flag);
     }
 
     @Override

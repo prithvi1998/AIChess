@@ -15,6 +15,9 @@ public class Queen extends Peice {
     public Queen(int c, int pos) {
         super(PeiceType.QUEEN,c, pos,true);
     }
+    public Queen(final int c,final int pos,final boolean flag) {
+        super(PeiceType.QUEEN,c, pos,flag);
+    }
     @Override
     public Queen movePeice(Move move) {
         return new Queen(move.getMpeice().color,move.getDestination());
